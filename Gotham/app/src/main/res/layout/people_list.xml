@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Name" />
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:srcCompat="@mipmap/people" />
+
+        <TextView
+            android:id="@+id/favday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Favorite Days: " />
+
+        <TextView
+            android:id="@+id/favfood"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Favorite Foods: " />
+        <!--
+                <com.example.liszdeng.views.RoundProgressBar
+                    android:id="@+id/satify"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:max="100"
+                    android:progress="0"
+                    android_custom:roundColor="#D1D1D1"
+                    android_custom:roundProgressColor="@android:color/black"
+                    android_custom:textColor="#9A32CD"
+                    android_custom:textIsDisplayable="false"
+                    android_custom:roundWidth="10dip"
+                    android_custom:textSize="18sp"
+                />
+        -->
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

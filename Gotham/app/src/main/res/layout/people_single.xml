@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/describe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/people" />
+
+    <TextView
+        android:id="@+id/describe"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="10dp"
+        android:text="Describe"
+        app:layout_constraintBottom_toTopOf="@+id/cov2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picture" />
+
+    <Button
+        android:id="@+id/cov1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="15dp"
+        android:text="cov1"
+        app:layout_constraintBottom_toTopOf="@+id/cov4"
+        app:layout_constraintEnd_toStartOf="@+id/cov2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/describe" />
+
+    <Button
+        android:id="@+id/cov2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="10dp"
+        android:text="cov2"
+        app:layout_constraintBottom_toTopOf="@+id/cov5"
+        app:layout_constraintEnd_toStartOf="@+id/cov3"
+        app:layout_constraintStart_toEndOf="@+id/cov1"
+        app:layout_constraintTop_toBottomOf="@+id/describe" />
+
+    <Button
+        android:id="@+id/cov3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="15dp"
+        android:text="cov3"
+        app:layout_constraintBottom_toTopOf="@+id/cov6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cov2"
+        app:layout_constraintTop_toBottomOf="@+id/describe" />
+
+    <Button
+        android:id="@+id/cov4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="5dp"
+        android:text="cov4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cov5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cov1" />
+
+    <Button
+        android:id="@+id/cov5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="5dp"
+        android:text="cov1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cov6"
+        app:layout_constraintStart_toEndOf="@+id/cov4"
+        app:layout_constraintTop_toBottomOf="@+id/cov2" />
+
+    <Button
+        android:id="@+id/cov6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="5dp"
+        android:text="cov6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cov5"
+        app:layout_constraintTop_toBottomOf="@+id/cov3" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="410dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="64dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

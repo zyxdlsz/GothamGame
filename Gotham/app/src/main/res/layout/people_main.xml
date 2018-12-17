@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/prev"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="250dp"
+        android:layout_marginTop="250dp"
+        android:text="prev"
+        app:layout_constraintBottom_toTopOf="@+id/pages"
+        app:layout_constraintEnd_toStartOf="@+id/horizon_cuslist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.512" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="250dp"
+        android:layout_marginTop="250dp"
+        android:text="next"
+        app:layout_constraintBottom_toTopOf="@+id/pages"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/horizon_cuslist"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506" />
+
+    <main.views.HorizontalListView
+        android:id="@+id/horizon_cuslist"
+        android:layout_width="287dp"
+        android:layout_height="395dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintBottom_toTopOf="@+id/pages"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintStart_toEndOf="@+id/prev"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_alignParentTop="true">
+    </main.views.HorizontalListView>
+
+    <TextView
+        android:id="@+id/pages"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="142dp"
+        android:layout_marginStart="142dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizon_cuslist" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="267dp"
+        android:layout_marginTop="3dp"
+        android:text="exit"
+        app:layout_constraintBottom_toTopOf="@+id/horizon_cuslist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
