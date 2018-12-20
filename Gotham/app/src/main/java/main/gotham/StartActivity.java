@@ -97,6 +97,15 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+        button = (Button) findViewById(R.id.collect);
+        button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent people = new Intent(StartActivity.this, CollectionActivity.class);
+                Log.v("mylog","into equip page");
+                startActivity(people);
+            }
+        });
+
         //new StrengthThread().start();
 
     }
