@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import main.views.HorizontalListView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -261,7 +259,7 @@ public class FoodActivity extends AppCompatActivity {
 
                 holder=new ViewHolder();
 
-                convertView = mInflater.inflate(R.layout.food_list, null);
+                convertView = mInflater.inflate(R.layout.food_item, null);
                 holder.img = (ImageView)convertView.findViewById(R.id.img);
                 holder.fname = (TextView)convertView.findViewById(R.id.fname);
                 holder.fclass = (TextView)convertView.findViewById(R.id.fclass);

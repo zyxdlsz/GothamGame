@@ -201,7 +201,7 @@ public class PeopleActivity extends AppCompatActivity {
 
                 holder = new ViewHolder();
 
-                convertView = mInflater.inflate(R.layout.people_list, null);
+                convertView = mInflater.inflate(R.layout.people_item, null);
                 holder.img = (ImageView) convertView.findViewById(R.id.picture);
                 holder.pname = (TextView) convertView.findViewById(R.id.name);
                 holder.pfavday = (TextView) convertView.findViewById(R.id.favday);

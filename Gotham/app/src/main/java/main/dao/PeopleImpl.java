@@ -14,4 +14,6 @@ public interface PeopleImpl {
     public List<People> getPair(int i);
     public People getByName(String name);
     public People getByID(int id);
+
+    //getCount, pair可以自己算，然后通过getByID获取
 }

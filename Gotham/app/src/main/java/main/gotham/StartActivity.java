@@ -53,10 +53,11 @@ public class StartActivity extends AppCompatActivity {
 
         guestfl=(FrameLayout)findViewById(R.id.peoplefl);
 
-        if(!StartTime.isInitialized()){
-            StartTime.init(startDay);
+        StartTime startTime=new StartTime(this);
+        if(!startTime.isInitialized()){
+            startTime.init(startDay);
         }
-        startDay=StartTime.getInstance();
+        startDay=startTime.getInstance();
         gTime=(TextView) findViewById(R.id.time);
         gTime.setText(getTime());
         new TimeThread().start();
@@ -91,7 +92,7 @@ public class StartActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.equip);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent people = new Intent(StartActivity.this, TestActivity.class);
+                Intent people = new Intent(StartActivity.this, EquipActivity.class);
                 Log.v("mylog","into equip page");
                 startActivity(people);
             }
@@ -166,7 +167,7 @@ public class StartActivity extends AppCompatActivity {
                     tcount++;
                     scount++;
                     //display time
-                    if(tcount>9) {
+                    if(tcount>0) {
                         Message msg = new Message();
                         msg.what = msgKey1;
                         mHandler.sendMessage(msg);
@@ -178,10 +179,9 @@ public class StartActivity extends AppCompatActivity {
                         Message msg2 = new Message();
                         msg2.what = msgKey2;
                         mHandler.sendMessage(msg2);
-                        //Log.v("mylog", "send strength");
+                        Log.v("mylog", "send strength");
                         scount=0;
                     }
-
                     if(bcount<1) {
                         bcount++;
                         Message msg3 = new Message();
@@ -204,6 +204,7 @@ public class StartActivity extends AppCompatActivity {
             switch (msg.what) {
                 case msgKey1:
                     gTime.setText(getTime());
+                    Log.v("mylog",""+gTime.getText());
                     break;
                 case msgKey2:
                     strengthProgress.incrementProgressBy(1);
@@ -233,6 +234,7 @@ public class StartActivity extends AppCompatActivity {
         */
 
         Date start=startDay.getTime();
+        //Log.v("mylog","time is "+start.getTime());
         Date end=c.getTime();
 
         long m_total=(end.getTime()-start.getTime())/(60*1000);
@@ -267,8 +269,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void addFLView(){
-        Walker walk=new Walker();
-        walkguests[bcount-1]=new WalkView(this,walk,2);
-        guestfl.addView(walkguests[bcount-1]);
+        //Walker walk=new Walker();
+        //walkguests[bcount-1]=new WalkView(this,walk,2);
+        //guestfl.addView(walkguests[bcount-1]);
     }
 }

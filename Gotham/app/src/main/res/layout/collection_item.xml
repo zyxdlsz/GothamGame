@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_width="100dp"
-    android:layout_height="130dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/bell" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="The Small Bell" />
 </LinearLayout>

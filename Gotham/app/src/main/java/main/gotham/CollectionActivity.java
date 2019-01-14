@@ -1,5 +1,6 @@
 package main.gotham;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,6 +143,12 @@ public class CollectionActivity extends AppCompatActivity {
             holder.item_tex.setText(text[position]);
             holder.item_img.setImageResource(img_grid[position]);
 
+            WindowManager windowManager = ((Activity)context).getWindowManager();
+            Display display = windowManager.getDefaultDisplay();
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.width = display.getWidth()/4;// 设置dialog宽度为屏幕的1/4
+            lp.height = display.getHeight()/10;// 4排除8，5排除10
+            convertView.setLayoutParams(lp);
             return convertView;
         }
     }

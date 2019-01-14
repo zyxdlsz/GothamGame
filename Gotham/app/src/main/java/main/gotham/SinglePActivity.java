@@ -23,7 +23,7 @@ public class SinglePActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.people_single);
+        setContentView(R.layout.people_dialog);
 
         Button button = (Button) findViewById(R.id.exit);
         button.setOnClickListener(new Button.OnClickListener() {

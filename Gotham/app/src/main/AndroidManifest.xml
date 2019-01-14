@@ -37,11 +37,9 @@
         </activity>
         <activity android:name=".CollectionActivity"
             android:theme="@style/Theme.AppCompat.Light.DialogNoTitleFull">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".EquipActivity"
+            android:theme="@style/Theme.AppCompat.Light.DialogNoTitleFull">
         </activity>
         <activity android:name=".TestActivity">
         </activity>
