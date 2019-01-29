@@ -167,7 +167,7 @@ public class StartActivity extends AppCompatActivity {
                     tcount++;
                     scount++;
                     //display time
-                    if(tcount>0) {
+                    if(tcount>9) {
                         Message msg = new Message();
                         msg.what = msgKey1;
                         mHandler.sendMessage(msg);
@@ -204,7 +204,7 @@ public class StartActivity extends AppCompatActivity {
             switch (msg.what) {
                 case msgKey1:
                     gTime.setText(getTime());
-                    Log.v("mylog",""+gTime.getText());
+                    //Log.v("mylog",""+gTime.getText());
                     break;
                 case msgKey2:
                     strengthProgress.incrementProgressBy(1);
@@ -241,7 +241,7 @@ public class StartActivity extends AppCompatActivity {
         long s=(end.getTime()-start.getTime())/1000-m_total*60;
         int gD=(int)m_total/24;
         int gH=(int)m_total%24/10;
-        int gM=(int)(m_total%24%10*60+s)/20;
+        int gM=(int)(m_total%24%10*60+s)/10;
 
         String gDay = String.format("%d", gD%7);
         String gHour = String.format("%02d",gH);
@@ -269,8 +269,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void addFLView(){
-        //Walker walk=new Walker();
-        //walkguests[bcount-1]=new WalkView(this,walk,2);
-        //guestfl.addView(walkguests[bcount-1]);
+        Walker walk=new Walker();
+        walkguests[bcount-1]=new WalkView(this,walk,2);
+        guestfl.addView(walkguests[bcount-1]);
     }
 }
