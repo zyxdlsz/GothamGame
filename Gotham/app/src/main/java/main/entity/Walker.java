@@ -74,5 +74,4 @@ public class Walker implements Cloneable{
     public int getHeroStep() {
         return HeroStep;
     }
-
 }

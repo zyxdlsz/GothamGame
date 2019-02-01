@@ -42,7 +42,9 @@ public class StartActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     private int current=0;
 
-    WalkView[] walkguests=new WalkView[4];
+    private int maxguest=4;
+    private int curtgust=0;
+    WalkView[] walkguests=new WalkView[maxguest];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
         startDay=startTime.getInstance();
         gTime=(TextView) findViewById(R.id.time);
         gTime.setText(getTime());
-        new TimeThread().start();
+        //new TimeThread().start();
 
         mediaPlayer=MediaPlayer.create(this,R.raw.demo3);
         mediaPlayer.setLooping(true);
@@ -108,7 +110,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
         //new StrengthThread().start();
-
+        addGuest();
     }
 
     //onStop and onRestart are for the music play
@@ -166,6 +168,7 @@ public class StartActivity extends AppCompatActivity {
                     Thread.sleep(1000);
                     tcount++;
                     scount++;
+                    //还有问题，之后再看看书
                     //display time
                     if(tcount>9) {
                         Message msg = new Message();
@@ -211,7 +214,7 @@ public class StartActivity extends AppCompatActivity {
                     setProgress(100 * strengthProgress.getProgress());
                     break;
                 case msgKey3:
-                    addFLView();
+                    addGuest();
                     break;
                 default:
                     break;
@@ -268,9 +271,26 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    public void addFLView(){
+    public boolean hasSeat(){
+        return true;
+    }
+
+    public int[] getNextSeat(){
+        int[] a={1,7};
+        return a;
+    }
+    public void addGuest(){
+        if(hasSeat()){
+            int[] seat=getNextSeat();
+            int door= ((int) Math.floor(Math.random() * 2));
+            addFLView(seat,door);
+        }
+    }
+    public void addFLView(int[] seat,int door){
         Walker walk=new Walker();
-        walkguests[bcount-1]=new WalkView(this,walk,2);
-        guestfl.addView(walkguests[bcount-1]);
+        walkguests[curtgust]=new WalkView(this,walk,seat,door);
+        Log.v("mylog","addView");
+        guestfl.addView(walkguests[curtgust]);
+
     }
 }

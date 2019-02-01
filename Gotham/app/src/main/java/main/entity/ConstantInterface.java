@@ -41,10 +41,10 @@ public interface ConstantInterface {
     /*
      * this is final static for entrance
      */
-    int DOOR1_X=6;
-    int DOOR1_Y=0;
+    int DOOR1_X=10;
+    int DOOR1_Y=4;
     int DOOR2_X=10;
-    int DOOR2_Y=4;
+    int DOOR2_Y=6;
 
     /*
      * this is final static for char position
@@ -55,5 +55,11 @@ public interface ConstantInterface {
     //位置2
     int P2_X=3;
     int P2_Y=9;
+
+    /*
+     * this is final static for fist desk bundary
+     */
+
+    int B1_X=7;
 
 }

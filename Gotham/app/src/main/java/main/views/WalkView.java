@@ -37,37 +37,41 @@ public class WalkView extends View {
     public final static int OFF_HERO_Y = 35;
 
     //初始化人物的标签
-    private boolean flag=true;
-    private int pattern;
-    private int[][] positions=new int[2][2];
-    private int[] door1=new int[2];
-    private int[] door2=new int[2];
+    private boolean initflag=true;//是否要初始化的标志
+    private int[] seat=new int[2];
+    private int judgedoor;
+    private int[] door=new int[2];
     private int[] dest=new int[2];
+    private int boundary;
+    private boolean inflag=true;//进入还是出去的标志
+    private boolean turnflag=true;//是否还没有转过弯
     /**
      * 构造方法
      *
      * @param context
      */
-    public WalkView(Context context, Walker walker,int pat) {
+    public WalkView(Context context, Walker walker,int[] chair,int door) {
         super(context);
-        init(context,walker,pat);
+        init(context,walker,chair,door);
     }
 
-    public WalkView(Context context, AttributeSet attrs, Walker walker,int pat) {
+    public WalkView(Context context, AttributeSet attrs, Walker walker,int[] chair,int door) {
         super(context, attrs);
-        init(context,walker,pat);
+        init(context,walker,chair,door);
     }
 
-    public WalkView(Context context, AttributeSet attrs, int defStyleAttr, Walker walker,int pat) {
+    public WalkView(Context context, AttributeSet attrs, int defStyleAttr, Walker walker,int[] chair,int door) {
         super(context, attrs, defStyleAttr);
-        init(context,walker,pat);
+        init(context,walker,chair,door);
     }
 
-    public void init(Context context,Walker wal,int pat){
+    public void init(Context context,Walker wal,int[] chair,int door){
         mPaint = new Paint();
         walker=wal;
-        pattern=pat;
-        Log.v("mylog","pattern is "+pat);
+        seat[0]=chair[0];
+        seat[1]=chair[1];
+        judgedoor=door;
+        Log.v("mylog","init fist over");
         initAnimation(context);
     }
 
@@ -83,55 +87,32 @@ public class WalkView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mScreenWidth = getWidth()-250;
-        mScreenHeight = getHeight()-250;
-        if(flag){
-            //初始化 门，人的位置，终点位置，行走方向
-            positions[0][0]=mScreenWidth*ConstantInterface.P1_X/10;
-            positions[0][1]=mScreenWidth*ConstantInterface.P1_Y/10;
-            positions[1][0]=mScreenWidth*ConstantInterface.P2_X/10;
-            positions[1][1]=mScreenWidth*ConstantInterface.P2_Y/10;
-            if(pattern%2==0){
-                if(pattern<2) {//上一半的座位数
-                    door1[0]=mScreenWidth*ConstantInterface.DOOR1_X/10;
-                    door1[1]=mScreenHeight*ConstantInterface.DOOR1_Y/10;
-                    walker.setmHeroPosX(door1[0]);
-                    walker.setmHeroPosY(door1[1]);
-                    //mAnimationState = ConstantInterface.ANIM_LEFT;
-                }
-                else{
-                    door2[0]=mScreenWidth*ConstantInterface.DOOR2_X/10;
-                    door2[1]=mScreenHeight*ConstantInterface.DOOR2_Y/10;
-                    walker.setmHeroPosX(door2[0]);
-                    walker.setmHeroPosY(door2[1]);
-                    //mAnimationState = ConstantInterface.ANIM_RIGHT;
-                }
-                mAnimationState = ConstantInterface.ANIM_DOWN;
-                //mAnimationState = ConstantInterface.ANIM_STOP_D;
-            }else{
-                walker.setmHeroPosX(positions[pattern/2-1][0]);
-                walker.setmHeroPosY(positions[pattern/2-1][1]);
-            }
-            switch(pattern){
-                case ConstantInterface.ROUTE_PATTERN1_A:
-                    dest[0]=positions[0][0];
-                    dest[1]=positions[0][1];
-                    break;
-                case ConstantInterface.ROUTE_PATTERN1_B:
-                    dest[0]=door1[0];
-                    dest[1]=door1[1];
-                    break;
-                case ConstantInterface.ROUTE_PATTERN2_A:
-                    dest[0]=positions[1][0];
-                    dest[1]=positions[1][1];
-                    break;
-                case ConstantInterface.ROUTE_PATTERN2_B:
-                    dest[0]=door2[0];
-                    dest[1]=door2[1];
-                    break;
-            }
+        if(initflag){
 
-            flag=false;
+            mScreenWidth = getWidth()-250;
+            mScreenHeight = getHeight()-250;
+            //初始化 门，人的位置，终点位置，行走方向
+
+            if(judgedoor==0){
+                door[0]=mScreenWidth*ConstantInterface.DOOR1_X/10;
+                door[1]=mScreenHeight*ConstantInterface.DOOR1_Y/10;
+            }
+            else{
+                door[0]=mScreenWidth*ConstantInterface.DOOR2_X/10;
+                door[1]=mScreenHeight*ConstantInterface.DOOR2_Y/10;
+            }
+            walker.setmHeroPosX(door[0]);
+            walker.setmHeroPosY(door[1]);
+            dest[0]=mScreenWidth*seat[0]/10;
+            dest[1]=mScreenWidth*seat[1]/10;
+            boundary=mScreenHeight*ConstantInterface.B1_X/10;
+
+            mAnimationState = ConstantInterface.ANIM_LEFT;
+
+            initflag=false;
+
+
+
         }
         /**绘制动画**/
         RenderAnimation(canvas);
@@ -149,122 +130,136 @@ public class WalkView extends View {
         switch(mAnimationState){
             case ConstantInterface.ANIM_RIGHT://向右走
                 walker.setmHeroPosX(walker.getmHeroPosX()+walker.getHeroStep());
-
-                walker.setmHeroPosY(walker.getmHeroPosY()+walker.getHeroStep());
                 break;
             case ConstantInterface.ANIM_LEFT://向左走
+                //Log.v("mylog","go left");
                 walker.setmHeroPosX(walker.getmHeroPosX()-walker.getHeroStep());
-
-                walker.setmHeroPosY(walker.getmHeroPosY()-walker.getHeroStep());
+                //Log.v("mylog","walkerX: "+walker.getmHeroPosX()+" walkerY: "+walker.getmHeroPosY());
                 break;
             case ConstantInterface.ANIM_UP://向上走
+                //Log.v("mylog","go up");
                 walker.setmHeroPosY(walker.getmHeroPosY()-walker.getHeroStep());
-
-                walker.setmHeroPosX(walker.getmHeroPosX()+walker.getHeroStep());
+                //Log.v("mylog","walkerX: "+walker.getmHeroPosX()+" walkerY: "+walker.getmHeroPosY());
                 break;
             case ConstantInterface.ANIM_DOWN://向下走
+                //Log.v("mylog","go down");
                 walker.setmHeroPosY(walker.getmHeroPosY()+walker.getHeroStep());
-
-                walker.setmHeroPosX(walker.getmHeroPosX()-walker.getHeroStep());
+                //Log.v("mylog","walkerX: "+walker.getmHeroPosX()+" walkerY: "+walker.getmHeroPosY());
                 break;
             case ConstantInterface.ANIM_STOP_D:
             case ConstantInterface.ANIM_STOP_U:
-                //Log.v("mylog","then return");
+                Log.v("mylog","stop");
+                if(inflag)
+                    leave();
                 return;
         }
 
+        //在遇到第一张桌子之后转弯，转向能去到dest的方向
+        if(turnflag&&inflag&&walker.getmHeroPosX()<boundary+OFF_HERO_X){
+            if(dest[1]>walker.getmHeroPosY())
+                mAnimationState=ConstantInterface.ANIM_DOWN;
+            else
+                mAnimationState=ConstantInterface.ANIM_UP;
+            turnflag=false;
+            return;
+        }
+        //出门时同理
+        if(turnflag&&!inflag&&walker.getmHeroPosX()>boundary+OFF_HERO_X){
+            if(dest[1]>walker.getmHeroPosY())
+                mAnimationState=ConstantInterface.ANIM_DOWN;
+            else
+                mAnimationState=ConstantInterface.ANIM_UP;
+            turnflag=false;
+            return;
+        }
         //碰撞检测+终点检测
-
-        switch(pattern){
-            case ConstantInterface.ROUTE_PATTERN1_A:
-                if(walker.getmHeroPosX()>dest[0]&&walker.getmHeroPosY()>dest[1]){
-                    walker.setmHeroPosX(dest[0]);
-                    walker.setmHeroPosY(dest[1]);
-                    mAnimationState=ConstantInterface.ANIM_STOP_D;
-                }
-                else {
-                    routeA(OFF_HERO_X, mScreenHeight - OFF_HERO_X);
-                }
-                break;
-            case ConstantInterface.ROUTE_PATTERN2_A:
-                if(walker.getmHeroPosX()<dest[0]&&walker.getmHeroPosY()<dest[1]){
-                    Log.v("mylog","stop");
-                    //walker.setmHeroPosX(dest[0]);
-                    //walker.setmHeroPosY(dest[1]);
-                    mAnimationState=ConstantInterface.ANIM_STOP_U;
-                }
-                else {
-                    routeA(OFF_HERO_X, mScreenHeight - OFF_HERO_X);
+        switch(mAnimationState){
+            case ConstantInterface.ANIM_UP://dest[1]<walker.Y
+                if(walker.getmHeroPosY()<dest[1]-OFF_HERO_Y){
+                    walker.setmHeroPosY(dest[1]-OFF_HERO_Y);
+                    //进门向上有两种可能：到了/需要左转
+                    if(inflag){
+                        if(walker.getmHeroPosX()==dest[0]) {
+                            mAnimationState = ConstantInterface.ANIM_STOP_U;
+                        }
+                        else
+                            mAnimationState=ConstantInterface.ANIM_LEFT;
+                    }
+                    else{//出门向上有一种可能：需要右转
+                        mAnimationState=ConstantInterface.ANIM_RIGHT;
+                    }
                 }
                 break;
-            case ConstantInterface.ROUTE_PATTERN1_B:
-                if(walker.getmHeroPosX()>dest[0]&&walker.getmHeroPosY()>dest[1]){
-                    walker.setmHeroPosX(dest[0]);
-                    walker.setmHeroPosY(dest[1]);
-                    mAnimationState=ConstantInterface.ANIM_STOP_D;
-                }
-                else {
-                    routeB(OFF_HERO_X, mScreenHeight - OFF_HERO_X);
+            case ConstantInterface.ANIM_DOWN://dest[1]>walker.Y
+                if(walker.getmHeroPosY()>dest[1]+OFF_HERO_Y){
+                    walker.setmHeroPosY(dest[1]+OFF_HERO_Y);
+                    //进门向上有两种可能：到了/需要左转
+                    if(inflag){
+                        if(walker.getmHeroPosX()==dest[0])
+                            mAnimationState=ConstantInterface.ANIM_STOP_D;
+                        else
+                            mAnimationState=ConstantInterface.ANIM_LEFT;
+                    }
+                    else{//出门向上有一种可能：需要右转
+                        mAnimationState=ConstantInterface.ANIM_RIGHT;
+                    }
                 }
                 break;
-            case ConstantInterface.ROUTE_PATTERN2_B:
-                if(walker.getmHeroPosX()<dest[0]&&walker.getmHeroPosY()<dest[1]){
+            case ConstantInterface.ANIM_LEFT://dest[0]<walker.X
+                if(walker.getmHeroPosX()<dest[0]){
                     walker.setmHeroPosX(dest[0]);
-                    walker.setmHeroPosY(dest[1]);
-                    mAnimationState=ConstantInterface.ANIM_STOP_U;
+                    if(dest[1]>walker.getmHeroPosY()){//特殊情况（到达终点时）会有offset
+                        Log.v("mylog","dest[1]-offest: "+(dest[1]-OFF_HERO_Y)+" walkerY: "+walker.getmHeroPosY());
+                        if(walker.getmHeroPosY()==dest[1]-OFF_HERO_Y)
+                            mAnimationState=ConstantInterface.ANIM_STOP_D;
+                        else
+                            mAnimationState=ConstantInterface.ANIM_DOWN;
+                    }
+                    else{//特殊情况（到达终点时）会有offset
+                        Log.v("mylog","dest[1]+offest: "+(dest[1]+OFF_HERO_Y)+" walkerY: "+walker.getmHeroPosY());
+                        if(walker.getmHeroPosY()==dest[1]+OFF_HERO_Y)
+                            mAnimationState=ConstantInterface.ANIM_STOP_U;
+                        else
+                            mAnimationState=ConstantInterface.ANIM_UP;
+                    }
                 }
-                else {
-                    routeB(OFF_HERO_X, mScreenHeight - OFF_HERO_X);
+                break;
+            case ConstantInterface.ANIM_RIGHT:
+                if(walker.getmHeroPosX()>dest[0]){
+                    walker.setmHeroPosX(dest[0]);
+                    if(dest[1]>walker.getmHeroPosY()){//特殊情况（到达终点时）会有offset
+                        Log.v("mylog","dest[1]-offest: "+(dest[1]-OFF_HERO_Y)+" walkerY: "+walker.getmHeroPosY());
+                        if(walker.getmHeroPosY()==dest[1]-OFF_HERO_Y)
+                            mAnimationState=ConstantInterface.ANIM_STOP_D;
+                        else
+                            mAnimationState=ConstantInterface.ANIM_DOWN;
+                    }
+                    else{//特殊情况（到达终点时）会有offset
+                        Log.v("mylog","dest[1]+offest: "+(dest[1]+OFF_HERO_Y)+" walkerY: "+walker.getmHeroPosY());
+                        if(walker.getmHeroPosY()==dest[1]+OFF_HERO_Y)
+                            mAnimationState=ConstantInterface.ANIM_STOP_U;
+                        else
+                            mAnimationState=ConstantInterface.ANIM_UP;
+                    }
                 }
                 break;
         }
+        //Log.v("mylog","by the end walkerX: "+walker.getmHeroPosX()+" walkerY: "+walker.getmHeroPosY());
 
     }
 
-    /*
-     * 边缘检测
-     */
-    private void routeA(int leftmax,int bottom){
+    public void leave(){
+        inflag=false;
+        turnflag=true;
+        mAnimationState=ConstantInterface.ANIM_RIGHT;
+        dest[0]=door[0];
+        dest[1]=door[1];
 
-        if (walker.getmHeroPosX() < leftmax) {//碰到左边
-            walker.setmHeroPosX(leftmax);
-            mAnimationState=ConstantInterface.ANIM_RIGHT;
-        }else if (walker.getmHeroPosX() > mScreenWidth-OFF_HERO_X) {//碰到右边
-            walker.setmHeroPosX(mScreenWidth-OFF_HERO_X);
-            mAnimationState=ConstantInterface.ANIM_DOWN;
-        }
+        Log.v("mylog","destX: "+dest[0]+" destY: "+dest[1]);
 
-        if (walker.getmHeroPosY() < OFF_HERO_Y) {//碰到上边
-            walker.setmHeroPosY(OFF_HERO_Y);
-            mAnimationState=ConstantInterface.ANIM_DOWN;
-        }if (walker.getmHeroPosY() > bottom) {//碰到下边
-            walker.setmHeroPosY(bottom);
-            mAnimationState=ConstantInterface.ANIM_LEFT;
-            //mAnimationState=ConstantInterface.ANIM_STOP_D;
-
-        }
-    }
-    private void routeB(int leftmax,int bottom){
-
-        if (walker.getmHeroPosX() < leftmax) {//碰到左边
-            walker.setmHeroPosX(leftmax);
-            mAnimationState=ConstantInterface.ANIM_UP;
-        } else if (walker.getmHeroPosX() > mScreenWidth-OFF_HERO_X) {//碰到右边
-            walker.setmHeroPosX(mScreenWidth-OFF_HERO_X);
-            mAnimationState=ConstantInterface.ANIM_LEFT;
-            //mAnimationState=ANIM_STOP;
-        }
-        if (walker.getmHeroPosY() < OFF_HERO_Y) {//碰到上边
-            walker.setmHeroPosY(OFF_HERO_Y);
-            mAnimationState=ConstantInterface.ANIM_RIGHT;
-        } else if (walker.getmHeroPosY() > bottom) {//碰到下边
-            walker.setmHeroPosY(bottom);
-            mAnimationState=ConstantInterface.ANIM_UP;
-        }
     }
 
     private void RenderAnimation(Canvas canvas) {
-        //Log.v("mylog","direction is "+mAnimationState);
         walkerAnim[mAnimationState].DrawAnimation(canvas, mPaint, walker.getmHeroPosX(), walker.getmHeroPosY());
     }
 }
